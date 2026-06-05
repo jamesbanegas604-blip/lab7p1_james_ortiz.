@@ -23,6 +23,7 @@ public class Lab7p1_james_ortiz {
         while(op!=3){
             switch (op){
                 case 1:
+                    YEPTDERLR();
                     break;
                 case 2:
                     multimatrices();
@@ -50,9 +51,7 @@ public class Lab7p1_james_ortiz {
         return op=sc.nextInt();
     }
     
-    public static void YEPTDERLR(){
-        
-    }
+   
     public static void multimatrices(){
         System.out.println(" MULTIPLICACION DE MATRICES");
         System.out.println("Filas de A: ");
@@ -128,44 +127,89 @@ public class Lab7p1_james_ortiz {
         }
          
              
-        public static char[][] agregarElementoRandom(char[][] tablero, char elemento) {
-            int tamanoFilas = tablero.length;
-            int tamanoColumnas = tablero[0].length;    
-            int fila = r.nextInt(0, tamanoFilas);
-            int columna = r.nextInt(0, tamanoColumnas);      
-            while (tablero[fila][columna] != ' ') {
-                fila = r.nextInt(1, tamanoFilas);
-                columna = r.nextInt(1, tamanoColumnas);
+        public static void YEPTDERLR(){
+            char [][] refri = new char [8][7];
+            int res=11;
+            int puntos = 0;
+            llenarrefri(refri);
+            colocarcom(refri,'v',4);
+            colocarcom(refri,'t',3);
+            colocarcom(refri,'t',2);
+            colocarcom(refri,'t',1);
+            while(res>0){
+            imprimichsr(refri);
+                System.out.println("ingrese una fila (0-7)");
+                int fil=sc.nextInt();
+                while (fil>7){
+                    System.out.println("ingrese una fila (0-7)");
+                    fil=sc.nextInt();
+                }
+                System.out.println("ingrese una columna columna (0-6)");
+                int col=sc.nextInt();
+                 while (col>6){
+                    System.out.println("ingrese una columna (0-6)");
+                    fil=sc.nextInt();
+                }
+                int puntosgan=purgar(refri,fil,col);
+                if (puntosgan>0){
+                    puntos+=puntosgan;
+                    res--;
+                }
+                System.out.println("comida restante: "+ res);
+                System.out.println("puntos acumulados: "+puntos);
             }
-            tablero[fila][columna] = elemento;
-            return tablero;
-        }   
+        } 
         
-        public static char[][] llenartablero(char[][] tablero, int obstaculos) {
-            for (int i = 0; i < tablero.length; i++) { 
-                for (int j = 0; j < tablero[i].length; j++) {
-                    tablero[i][j] = ' ';
+        
+        public static void llenarrefri(char [][] x){
+            for (int i=0;i<x.length;i++){
+                for (int j = 0;j<x[i].length;j++){
+                    x[i][j]+='*';
                 }
-            }
-            tablero = agregarElementoRandom(tablero, 'T');
-            tablero = agregarElementoRandom(tablero, 'P');
-            
-            int contador = 0;
-            while (contador < obstaculos) {
-                tablero = agregarElementoRandom(tablero, 'X');
-                contador++;
-            }
-            return tablero;
-         }
-        public static void imprimirTablero(char[][] tablero) {
-            for (int i = 0; i < tablero.length; i++) { 
-                for (int j = 0; j < tablero[i].length; j++) {
-                    System.out.print("[" + tablero[i][j] + "]");
-                }
-                System.out.println("");
             }
         }
-        
-     
+          public static void colocarcom(char[][]x ,char c ,int fre){
+          int cont  =0;
+          while (cont<fre){
+              int fila = r.nextInt(8);
+              int col = r.nextInt(7);
+              if (x[fila][col]=='*'){
+                  x[fila][col]=c;
+                  cont++;
+              }
+          }
+          
+          
+        }
+          public static void imprimichsr(char [][] x) {
+            for (int i = 0; i < x.length; i++) {          
+                for (int j = 0; j < x[i].length; j++) {   
+                    System.out.print("["+x[i][j] + "]");
+                }
+                System.out.println();
+            }
+        }
+         public static int purgar(char [][]x,int fil, int col){
+             if (x[fil][col]=='v'){
+                 x[fil][col]=' ';
+                 return 1;
+             }
+             if (x[fil][col]=='t'){
+                 x[fil][col]=' ';
+                 return 2;
+             }
+             if (x[fil][col]=='s'){
+                 x[fil][col]=' ';
+                 return 3;
+                 
+             }
+             if (x[fil][col]=='p'){
+                 x[fil][col]=' ';
+                 return 5;
+             }
+            
+                 System.out.println("ese espacion tiene comida buena, no la purges");
+                 return 0;
+         }
    
 }
