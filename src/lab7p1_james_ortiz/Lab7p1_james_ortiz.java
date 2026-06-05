@@ -71,12 +71,23 @@ public class Lab7p1_james_ortiz {
             fil2 = sc.nextInt();
          
         } 
+        
         int [][] mat1 = new int [fil1][col1];
         int [][] mat2 = new int [fil2][col2];
         mat1=lecturaramdom(fil1, col1);
         mat2=lecturaramdom(fil2, col2);
-        imprimir(mat1,fil1,col2);
-        imprimir2(mat2,fil1,col2);
+        imprimir(mat1,fil1,col1);
+        imprimir2(mat2,fil2,col2);
+        int [][]mat3 = new int [fil1][col2];
+        for (int i=0;i<fil1;i++){
+            for (int j=0;j<col2;j++){
+                for  (int k=0;k<col1;k++){
+                    mat3[i][j]+=mat1[i][k]*mat2[k][j];
+                }
+            }
+            
+        }
+        imprimir3(mat3,fil1,col2);
        
     }
       public static int[][] lecturaramdom(int size, int size2) {
@@ -106,6 +117,55 @@ public class Lab7p1_james_ortiz {
                 System.out.println();
             }
         }
+          public static void imprimir3(int[][] x,int a,int b) {
+            System.out.println("Matriz A X B ("+a+"x"+b+")");
+            for (int i = 0; i < x.length; i++) {          
+                for (int j = 0; j < x[i].length; j++) {   
+                    System.out.print("["+x[i][j] + "]");
+                }
+                System.out.println();
+            }
+        }
+         
+             
+        public static char[][] agregarElementoRandom(char[][] tablero, char elemento) {
+            int tamanoFilas = tablero.length;
+            int tamanoColumnas = tablero[0].length;    
+            int fila = r.nextInt(0, tamanoFilas);
+            int columna = r.nextInt(0, tamanoColumnas);      
+            while (tablero[fila][columna] != ' ') {
+                fila = r.nextInt(1, tamanoFilas);
+                columna = r.nextInt(1, tamanoColumnas);
+            }
+            tablero[fila][columna] = elemento;
+            return tablero;
+        }   
+        
+        public static char[][] llenartablero(char[][] tablero, int obstaculos) {
+            for (int i = 0; i < tablero.length; i++) { 
+                for (int j = 0; j < tablero[i].length; j++) {
+                    tablero[i][j] = ' ';
+                }
+            }
+            tablero = agregarElementoRandom(tablero, 'T');
+            tablero = agregarElementoRandom(tablero, 'P');
+            
+            int contador = 0;
+            while (contador < obstaculos) {
+                tablero = agregarElementoRandom(tablero, 'X');
+                contador++;
+            }
+            return tablero;
+         }
+        public static void imprimirTablero(char[][] tablero) {
+            for (int i = 0; i < tablero.length; i++) { 
+                for (int j = 0; j < tablero[i].length; j++) {
+                    System.out.print("[" + tablero[i][j] + "]");
+                }
+                System.out.println("");
+            }
+        }
+        
      
    
 }
