@@ -50,8 +50,6 @@ public class Lab7p1_james_ortiz {
         System.out.println("Elija una opcion");
         return op=sc.nextInt();
     }
-    
-   
     public static void multimatrices(){
         System.out.println(" MULTIPLICACION DE MATRICES");
         System.out.println("Filas de A: ");
@@ -134,7 +132,7 @@ public class Lab7p1_james_ortiz {
             llenarrefri(refri);
             colocarcom(refri,'v',4);
             colocarcom(refri,'t',3);
-            colocarcom(refri,'t',2);
+            colocarcom(refri,'t',3);
             colocarcom(refri,'t',1);
             while(res>0){
             imprimichsr(refri);
